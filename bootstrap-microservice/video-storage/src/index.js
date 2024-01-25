@@ -1,16 +1,29 @@
 const express = require("express");
-const azure = require("azure-storage");
+const fs = require("fs");
+const https = require("https");
+const create_blob_service = require("../storage/azure");
 
 const app = express();
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 8080;
 
-const STORAGE_ACCOUNT_NAME = process.env.STORAGE_ACCOUNT_NAME;
-const STORAGE_ACCESS_KEY = process.env.STORAGE_ACCESS_KEY;
+app.get("/get-video", (req, res) => {
+  const video_path = req.query.path;
 
-const create_blob_service = () => {
-  return azure.createBlobService(STORAGE_ACCOUNT_NAME, STORAGE_ACCESS_KEY);
-};
+  fs.stat(video_path, (err, stats) => {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+
+    res.writeHead(200, {
+      "content-length": stats.size,
+      "Content-Type": "video/mp4",
+    });
+
+    fs.createReadStream(video_path).pipe(res);
+  });
+});
 
 app.get("/video", (req, res) => {
   const video_path = req.query.path;

@@ -1,10 +1,11 @@
 {
-  "name": "video-player",
+  "name": "video-streaming",
   "version": "1.0.0",
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "start": "node src/index"
+    "start": "node src/index",
+    "dev": "nodemon src/index"
   },
   "keywords": [],
   "author": "",

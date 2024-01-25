@@ -1,12 +1,18 @@
-FROM node:alpine
+FROM node:16-alpine
+
+RUN mkdir -p /usr/src/app
 
 WORKDIR /usr/src/app
 
-COPY package*.json ./
+COPY package*.json .
 
 RUN npm install --production
 
-COPY /src /src
-COPY /videos /videos
+COPY src /usr/src/app/src
+# COPY videos /usr/src/app/videos
 
-CMD npm start
+# RUN ls -la /usr/src/app/src
+# RUN ls -la /usr/src/app/videos
+# RUN ls -la 
+
+CMD ["npm", "start"]

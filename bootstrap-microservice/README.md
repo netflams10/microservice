@@ -11,4 +11,10 @@
 ## Push Image
 ## docker push bmdk1.azurecr.io/video-streaming:latest
 ## docker push <image_registry_url>/<image_name:version>
+
+
+-------------------------------------------------------------------
+## Debugging Docker file
+
+## docker build --progress=plain --no-cache -t video-streaming .
 -------------------------------------------------------------------
